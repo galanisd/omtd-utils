@@ -13,7 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>ilsp-nlp-webservices-common</name>
+	<name>omtd-utils-webservices</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
