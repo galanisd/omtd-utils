@@ -25,10 +25,15 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-logging</artifactId>
-			<version>1.4.0.RELEASE</version>
+			<groupId>org.slf4j</groupId>
+  			<artifactId>log4j-over-slf4j</artifactId>
+  			<version>1.7.21</version>
 		</dependency>
 
+		<dependency>
+    		<groupId>org.apache.commons</groupId>
+    		<artifactId>commons-compress</artifactId>
+    		<version>1.14</version>
+		</dependency>
 	</dependencies>
 </project>

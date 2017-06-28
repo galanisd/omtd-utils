@@ -16,10 +16,10 @@ public class DirCompressor {
 
 	private static final Logger log = LoggerFactory.getLogger(DirCompressor.class);
 	
-	private String rootStore;
+	private String root;
 	
-	public DirCompressor(String rootStore){
-		this.rootStore = rootStore;		
+	public DirCompressor(String _root){
+		this.root = _root;		
 	}
 	
 	/**
@@ -61,7 +61,7 @@ public class DirCompressor {
 			FileInputStream in = new FileInputStream(files[i].getAbsolutePath());
 			log.debug(" Adding: " + files[i].getAbsolutePath());
 			
-			String rel = files[i].getAbsolutePath().substring(rootStore.length());			
+			String rel = files[i].getAbsolutePath().substring(root.length());			
 			rel = rel.replaceAll("\\\\", "/");
 			log.info("Adding rel : " + rel);
 			//String rel = files[i].getAbsolutePath().substring(rootStore.length() + 1);
