@@ -6,10 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Enumeration;
+import java.util.zip.ZipEntry;
 
-
-import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
-import org.apache.commons.compress.archivers.zip.ZipFile;
 import org.apache.commons.compress.utils.IOUtils;
 
 /**
@@ -19,12 +17,13 @@ import org.apache.commons.compress.utils.IOUtils;
 public class ZipToDir {
 
 	public static void unpackToWorkDir(File archiveFile, File toDir) throws IOException {
-		ZipFile zipFile = null;
+		java.util.zip.ZipFile zipFile = null;
 		try {
-			zipFile = new ZipFile(archiveFile);
-			Enumeration<ZipArchiveEntry> zipEntries = zipFile.getEntriesInPhysicalOrder();
+			zipFile = new java.util.zip.ZipFile(archiveFile);
+//            Enumeration<ZipArchiveEntry> zipEntries = zipFile.getEntriesInPhysicalOrder();
+			Enumeration<? extends ZipEntry> zipEntries = zipFile.entries();
 			while (zipEntries.hasMoreElements()) {
-				ZipArchiveEntry entry = zipEntries.nextElement();
+				ZipEntry entry = zipEntries.nextElement();
 				String entryName = entry.getName();
 				File outFile = new File(toDir, entryName);
 				if (!outFile.getParentFile().exists()) {
@@ -38,10 +37,9 @@ public class ZipToDir {
 						throw new IOException("Failed to create directory: " + outFile.getCanonicalPath());
 					}
 				} else {
-					InputStream zipStream = null;
-					OutputStream outFileStream = null;
-					zipStream = zipFile.getInputStream(entry);
-					outFileStream = new FileOutputStream(outFile);
+					InputStream zipStream = zipFile.getInputStream(entry);
+					OutputStream outFileStream = new FileOutputStream(outFile);
+
 					try {
 						IOUtils.copy(zipStream, outFileStream);
 					} finally {
@@ -51,7 +49,8 @@ public class ZipToDir {
 				}
 			}
 		} finally {
-			ZipFile.closeQuietly(zipFile);
+//            ZipFile.closeQuietly(zipFile);
+			zipFile.close();
 		}
 	}
 }
