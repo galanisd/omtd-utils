@@ -51,7 +51,7 @@ public class ZipToDir {
 			}
 		} finally {
 //            ZipFile.closeQuietly(zipFile);
-			zipFile.close();
+			if (zipFile != null) zipFile.close();
 		}
 	}
 }
