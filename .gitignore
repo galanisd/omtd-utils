@@ -5,3 +5,5 @@
 /omtd-utils-files/.settings
 /omtd-utils-files/target
 /omtd-utils-files/.classpath
+*/*.iml
+*.iml
