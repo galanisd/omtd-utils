@@ -1,7 +1,9 @@
+/.project
 /.settings
 /target
-/.classpath
-/.project
-.idea
+/omtd-utils-files/.project
+/omtd-utils-files/.settings
+/omtd-utils-files/target
+/omtd-utils-files/.classpath
+*/*.iml
 *.iml
-*.log
