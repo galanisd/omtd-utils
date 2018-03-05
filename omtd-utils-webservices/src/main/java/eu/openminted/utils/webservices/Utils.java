@@ -1,5 +1,6 @@
 package eu.openminted.utils.webservices;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,10 +43,16 @@ public class Utils {
 	 * @return
 	 */
 	public static ResponseEntity<Resource> download(InputStream fileInputStream, String fname){
-        
+
         Resource resource  = null;
-        
-        try {            
+        String cont_len = "0";
+        try {
+            cont_len = Integer.toString(fileInputStream.available());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
             resource = new InputStreamResource(fileInputStream);
             if(!resource.exists() || !resource.isReadable()) {
             	throw new DownloadException("Could not read file: " + fname);
@@ -54,12 +61,7 @@ public class Utils {
         } catch (DownloadException e) {
             throw new DownloadException("Could not read file: " + fname, e);
         }
-		String cont_len = "null";
-		try {
-			cont_len =  Long.toString(resource.contentLength());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
 		return ResponseEntity
                 .ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fname + "\"")
