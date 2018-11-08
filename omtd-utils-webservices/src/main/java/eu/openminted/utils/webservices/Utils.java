@@ -88,25 +88,27 @@ public class Utils {
 		return true;
 	}
 		
-	public static File upload(MultipartFile multipartFile){
-		
-		File file = null;
-		
+	/**
+	 * Stores an uploaded file.
+	 * @param multipartFile
+	 * @return
+	 */
+	public static File storeUploaded(MultipartFile multipartFile, String prefix, String suffix){		
+		File targetFile = null;		
 	    try{
-	    	log.info("uploadedFile");
-	    	// Create temp file.
-	    	File tmp = Files.createTempFile("ELRC", "").toFile();
+	    	log.info("store uploaded file:" + multipartFile.getName());
+	    	// Create temp target file.
+	    	File tmp = Files.createTempFile(prefix, suffix).toFile();
 			String destination = tmp  + multipartFile.getOriginalFilename();
-		    
-	    	file = new File(destination);
-		    multipartFile.transferTo(file);
-	    		    	
-		    
+		    // Move to uploaded to target file.
+	    	targetFile = new File(destination);
+		    multipartFile.transferTo(targetFile);	    	
 	    }catch(Exception e){
+	    	log.info("ERROR:", e);
 	    	e.printStackTrace();
 	    }
 		
-		return file;	
+		return targetFile;	
 	}
 	
 	public static String destination(String endpoint, String service){
