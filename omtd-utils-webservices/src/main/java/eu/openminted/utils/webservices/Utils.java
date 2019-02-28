@@ -99,8 +99,9 @@ public class Utils {
 	    	log.info("store uploaded file:" + multipartFile.getName());
 	    	// Create temp target file.
 	    	File tmp = Files.createTempFile(prefix, suffix).toFile();
+	    	// TO-DO: FIX concat.
 			String destination = tmp  + multipartFile.getOriginalFilename();
-		    // Move to uploaded to target file.
+		    // Move uploaded to target file.
 	    	targetFile = new File(destination);
 		    multipartFile.transferTo(targetFile);	    	
 	    }catch(Exception e){
